@@ -37,7 +37,7 @@ int count3s()
 int main(int argc, char *argv[])
 {
    int i;
-   length = 100000000;  /*  2^20  */
+   length = 100000000;
 
    array = calloc(length, sizeof(int));
 
