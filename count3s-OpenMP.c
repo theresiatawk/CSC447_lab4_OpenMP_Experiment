@@ -11,6 +11,7 @@ int count;
 
 int count3s()
 {
+   omp_set_num_threads(1);
    int i;
    count = 0;
    int count_p = 0;  /*** needed to move this declaration ***/
@@ -36,7 +37,7 @@ int count3s()
 int main(int argc, char *argv[])
 {
    int i;
-   length = 1048576;  /*  2^20  */
+   length = 100000000;  /*  2^20  */
 
    array = calloc(length, sizeof(int));
 
@@ -47,9 +48,12 @@ int main(int argc, char *argv[])
       array[i] = rand()%10;
    }
 
+   clock_t time_start = clock();
    count3s();  /* do the actual calculation */
+   clock_t time_end = clock();
 
-   printf("The number of 3's is %d\n", count);
+   double time_spent = ((double)(time_end - time_start) / CLOCKS_PER_SEC) * 1000.0;
+   printf("The number of 3's is %d and the execution time using OpenMp is %fms\n", count, time_spent);
 
    /* As a test, let us count 3's the slow, serial way. */
    count = 0;
